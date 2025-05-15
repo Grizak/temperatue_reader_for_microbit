@@ -20,14 +20,35 @@ input.onButtonPressed(Button.A, () => {
 });
 
 const showTempF = () => {
-    basic.showString("Temp:")
-    basic.showNumber(input.temperature() + 273.15);
-    basic.showString("K")
-    basic.pause(1000)
+    basic.showString("Temp:");
+    basic.showNumber((input.temperature() * (5/9)) + 32);
+    basic.plotLeds(`
+        ..#..
+        .#.#.
+        ..#..
+        .....
+        .....
+    `)
+    basic.pause(1000);
+    basic.showString("F");
+    basic.pause(1000);
     basic.clearScreen();
 }
 
 input.onButtonPressed(Button.B, () => {
     showTempF();
     loops.everyInterval(10*1000, showTempF)
+})
+
+const showTempK = () => {
+    basic.showString("Temp:");
+    basic.showNumber(input.temperature() + 273)
+    basic.showString("K");
+    basic.pause(1000);
+    basic.clearScreen();
+}
+
+input.onButtonPressed(Button.AB, () => {
+    showTempK();
+    loops.everyInterval(10*1000, showTempK)
 })
